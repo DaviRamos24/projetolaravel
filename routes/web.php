@@ -17,7 +17,7 @@ use App\Http\Controllers\ProdutoController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('init');
 
 Route::resource('tipoproduto', "\App\Http\Controllers\TipoProdutoController");
 Route::resource('produto', "\App\Http\Controllers\ProdutoController");

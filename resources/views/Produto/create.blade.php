@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <form method="post" action="/produto">
+        <form method="post" action="{{route('produto.store')}}">
             @csrf
             <div class="form-group">
               <label for="id-input-id">ID</label>
@@ -27,10 +27,14 @@
             </div>
             <div class="form-group">
                 <label for="id-input-tipo">Tipo</label>
-                <input type="text" name="Tipo_Produtos_id" class="form-control" id="id-input-tipo" placeholder="Digite o tipo do recurso">
+                <select id="id-input-tipo" class="form-select" name="Tipo_Produtos_id" aria-label="Default select example">
+                    @foreach ($tiposProduto as $item)
+                        <option value={{$item->id}}>{{$item->descricao}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group h2">
-                <a href="/produto" class="btn btn-primary">Voltar</a>
+                <a href="{{route('produto.index')}}" class="btn btn-primary">Voltar</a>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </div>
           </form>

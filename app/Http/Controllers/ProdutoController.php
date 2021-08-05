@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produto;
+use DB;
 
 class ProdutoController extends Controller
 {
@@ -25,7 +26,12 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        return view('Produto/create');
+        // Eu quero pegar todos os Tipos de Produto que estão no banco de dados e passar eles para a View Produto/create
+        // O objetivo de fazer isso é construir uma lista de todos os Tipos de Produto para construir SELECT
+        $tiposProduto = DB::select('SELECT * FROM tipo_produtos');
+
+        // Pego a variável construida e passo para a View: Produto/create
+        return view('Produto/create')->with('tiposProduto', $tiposProduto);
     }
 
     /**

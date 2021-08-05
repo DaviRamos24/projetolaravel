@@ -10,8 +10,8 @@
 </head>
 <body>
     <div class="container">
-        <form method="post" action="/tipoproduto">
-            @csrf
+      <form method="post" action="{{route('tipoproduto.store')}}">
+        @csrf
             <div class="form-group">
               <label for="id-input-id">ID</label>
               <input type="text" class="form-control" id="id-input-id" aria-describedby="id-help" placeholder="#" disabled>
@@ -22,7 +22,7 @@
               <input type="text" name="descricao" class="form-control" id="id-input-nome" placeholder="Digite o nome do recurso">
             </div>
             <div class="form-group h2">
-                <a href="/tipoproduto" class="btn btn-primary">Voltar</a>
+                <a href="{{route('tipoproduto.index')}}" class="btn btn-primary">Voltar</a>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </div>
           </form>
