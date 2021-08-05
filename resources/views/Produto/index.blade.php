@@ -10,7 +10,6 @@
 </head>
 <body>
     <div class="container">
-        <button>Teste</button>
         <table class="table table-hover">
             <thead>
               <tr>
