@@ -21,15 +21,15 @@
               </tr>
             </thead>
             <tbody>
-                @foreach ($produtos as $produto)
+                @foreach ($produtos_com_tipo as $produto_com_tipo)
                     <tr>
-                        <th scope="row">{{$produto->id}}</th>
-                        <td>{{$produto->nome}}</td>
-                        <td>{{$produto->preco}}</td>
-                        <td>{{$produto->Tipo_Produtos_id}}</td>
+                        <th scope="row">{{$produto_com_tipo->id}}</th>
+                        <td>{{$produto_com_tipo->nome}}</td>
+                        <td>{{$produto_com_tipo->preco}}</td>
+                        <td>{{$produto_com_tipo->descricao}}</td>
                         <td>
-                            <a href="#" class="btn btn-primary">Mostrar</a>
-                            <a href="#" class="btn btn-secondary">Alterar</a>
+                            <a href="{{route('produto.show', $produto_com_tipo->id)}}" class="btn btn-primary">Mostrar</a>
+                            <a href="{{route('produto.edit', $produto_com_tipo->id)}}" class="btn btn-secondary">Alterar</a>
                             <a href="#" class="btn btn-danger">Remover</a>
                         </td>
                     </tr>

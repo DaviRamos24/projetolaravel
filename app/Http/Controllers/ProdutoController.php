@@ -15,8 +15,11 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        $produtos = Produto::all();
-        return view('Produto/index')->with('produtos', $produtos);
+        $produtos_com_tipo = DB::select("SELECT produtos.id, nome, preco, descricao
+                                         FROM produtos
+                                         JOIN tipo_produtos ON Tipo_Produtos_id = tipo_produtos.id");
+        //$produtos = Produto::all();
+        return view('Produto/index')->with('produtos_com_tipo', $produtos_com_tipo);
     }
 
     /**
@@ -58,18 +61,44 @@ class ProdutoController extends Controller
      */
     public function show($id)
     {
-        //
+        // Faço uma consulta e pego a posição 0 do resultado
+        // Os resultados sempre não vetores (não importa se ele ter apenas um elemento)
+        $produto = DB::select("SELECT PRODUTOS.id, 
+                                      PRODUTOS.nome, 
+                                      PRODUTOS.preco, 
+                                      TIPO_PRODUTOS.descricao, 
+                                      PRODUTOS.updated_at, 
+                                      PRODUTOS.created_at 
+                               FROM PRODUTOS
+                               JOIN TIPO_PRODUTOS ON Tipo_Produtos_id = TIPO_PRODUTOS.id
+                               WHERE PRODUTOS.id = ?", [$id])[0];
+        //print_r($produto);
+        return view('Produto/show')->with('produto', $produto);
     }
 
     /**
      * Show the form for editing the specified resource.
+     * Mostra o formulário para edição de um recurso específico.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        // Faço uma consulta e pego a posição 0 do resultado
+        // Os resultados sempre não vetores (não importa se ele ter apenas um elemento)
+        $produto = DB::select("SELECT PRODUTOS.id, 
+                                      PRODUTOS.nome, 
+                                      PRODUTOS.preco, 
+                                      TIPO_PRODUTOS.descricao, 
+                                      PRODUTOS.updated_at, 
+                                      PRODUTOS.created_at 
+                               FROM PRODUTOS
+                               JOIN TIPO_PRODUTOS ON Tipo_Produtos_id = TIPO_PRODUTOS.id
+                               WHERE PRODUTOS.id = ?", [$id])[0];
+        // Pegar todos os tipos no banco de dados
+        $tiposProduto = DB::select('SELECT * FROM tipo_produtos');
+        return view('Produto/edit')->with('produto', $produto)->with('tiposProduto', $tiposProduto);
     }
 
     /**
@@ -81,7 +110,16 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $produto = Produto::find($id);
+        // print_r($produto);
+        if($produto){
+            $produto->nome = $request->nome;
+            $produto->preco = $request->preco;
+            $produto->Tipo_Produtos_id = $request->Tipo_Produtos_id;
+            $produto->update();
+        }
+        
+        return $this->index();
     }
 
     /**
