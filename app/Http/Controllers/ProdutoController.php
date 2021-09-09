@@ -130,6 +130,13 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //echo 'metodo destroy' . $id;
+        $produto = Produto::find($id);
+        //print_r($produto);
+        if($produto){
+            $produto->delete();
+        }
+        
+        return $this->index();
     }
 }
