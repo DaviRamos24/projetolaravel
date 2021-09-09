@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Index de Produto</title>
+    <title>Index de TipoProduto</title>
 </head>
 <body>
     <div class="container">
@@ -19,14 +19,21 @@
               </tr>
             </thead>
             <tbody>
-                @foreach ($tipoProdutos as $tipoProduto)
+                {{-- [ {1, Pizza}, {2, Suco}, {3, Cerveja}, ... ] --}}
+                @foreach ($tipos as $tipo)
                     <tr>
-                        <th scope="row">{{$tipoProduto->id}}</th>
-                        <td>{{$tipoProduto->descricao}}</td>
+                        <th scope="row">{{$tipo->id}}</th>
+                        <td>{{$tipo->descricao}}</td>
                         <td>
-                            <a href="#" class="btn btn-primary">Mostrar</a>
-                            <a href="#" class="btn btn-secondary">Alterar</a>
-                            <a href="#" class="btn btn-danger">Remover</a>
+                            <!-- Buffon trigger modal -->
+                            <form actin="{{route('tipoproduto.destroy', $tipo->id)}}" method=""
+                                <input name="_method" type="hidden" value="DELETE">
+                                @csrf
+                            <a href="{{route('tipoproduto.show', $tipo->id)}}" class="btn btn-primary">Mostrar</a>
+                            <a href="{{route('tipoproduto.edit', $tipo->id)}}" class="btn btn-secondary">Alterar</a>
+                            <button type ="button" class="btn btn-danger" data-toggle="modal" data-data-target="#exampleModal">
+                              Remover
+                            </button>
                         </td>
                     </tr>
                 @endforeach
